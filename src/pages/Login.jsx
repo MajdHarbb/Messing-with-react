@@ -10,17 +10,23 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { api } from "../helpers/api";
 
 const theme = createTheme();
 
 export default function Login() {
-  const handleSubmit = (event) => {
+  const [data, setData] = useState({ email: null, password: null });
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    console.log(data);
+    try {
+      const res = await api.login(data);
+      console.log(res.data);
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   return (
@@ -56,6 +62,9 @@ export default function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e) =>
+                setData({ email: e.target.value, password: data.password })
+              }
             />
             <TextField
               margin="normal"
@@ -66,6 +75,9 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e) =>
+                setData({ email: data.email, password: e.target.value })
+              }
             />
             <Button
               type="submit"
@@ -75,7 +87,7 @@ export default function Login() {
             >
               Sign In
             </Button>
-            <Grid container>
+            <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link to="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
