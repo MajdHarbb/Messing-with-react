@@ -12,12 +12,17 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { api } from "../helpers/api";
+import Alert from "../components/Alert";
 
 const theme = createTheme();
 
 export default function Login() {
   const [data, setData] = useState({ email: null, password: null });
 
+  const [dialogIsOpen, setDialogIsOpen] = React.useState(false);
+  const openDialog = () => setDialogIsOpen(true);
+  const closeDialog = () => setDialogIsOpen(false);
+  const [error, setError] = useState("Invalid Credentails");
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(data);
@@ -26,6 +31,7 @@ export default function Login() {
       console.log(res.data);
     } catch (error) {
       console.log("error", error);
+      setDialogIsOpen(true);
     }
   };
 
@@ -33,6 +39,12 @@ export default function Login() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        <Alert
+          open={dialogIsOpen}
+          onClose={closeDialog}
+          text={error}
+          title="Login Failed"
+        />
         <Box
           sx={{
             marginTop: 8,
