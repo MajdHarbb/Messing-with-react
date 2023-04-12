@@ -14,7 +14,7 @@ const ProtectedRoutes = () => {
       <Outlet />
     </React.Fragment>
   ) : (
-    <Navigate to="unauthorized" />
+    <Navigate to="/login" />
   );
 };
 

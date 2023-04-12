@@ -21,7 +21,6 @@ function App() {
             <Route path="/home" element={<Landing />} />
           </Route>
           <Route path="*" element={<NotFound />} />
-          <Route path="unauthorized " element={<Unauthorized />} />
         </Route>
       </Routes>
     </BrowserRouter>
