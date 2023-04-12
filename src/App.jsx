@@ -6,6 +6,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotFound from "./components/NotFound";
 import Landing from "./pages/Authenticated/Landing";
+import ProtectedRoutes from "./helpers/routing/ProtectedRoutes";
+import Unauthorized from "./components/Unauthorized";
 
 function App() {
   return (
@@ -15,8 +17,11 @@ function App() {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
-          <Route path="landing" element={<Landing />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/home" element={<Landing />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
+          <Route path="unauthorized " element={<Unauthorized />} />
         </Route>
       </Routes>
     </BrowserRouter>

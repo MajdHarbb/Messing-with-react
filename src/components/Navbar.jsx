@@ -10,11 +10,10 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Logout } from "@mui/icons-material";
 import { useAuth } from "../context/AuthContext";
 import Stack from "@mui/material/Stack";
-
 const pages = ["login", "signup", "Home", "Blogs"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -22,6 +21,7 @@ function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -137,16 +137,23 @@ function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             {isLoggedIn ? (
               <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                variant="outlined"
+                style={{ color: "white", borderColor: "white" }}
+                onClick={() => navigate("/")}
               >
                 Logout
               </Button>
             ) : (
               <Stack direction="row" spacing={1}>
-                <Button variant="Contained">Login</Button>
-                <Button variant="outlined" style={{ color: "white" }}>
-                  Logout
+                <Button variant="Contained" onClick={() => navigate("signup")}>
+                  Sign Up
+                </Button>
+                <Button
+                  variant="outlined"
+                  style={{ color: "white", borderColor: "white" }}
+                  onClick={() => navigate("login")}
+                >
+                  Login
                 </Button>
               </Stack>
               // <p>kaksdhbajsd</p>

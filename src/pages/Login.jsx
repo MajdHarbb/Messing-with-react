@@ -36,7 +36,7 @@ export default function Login() {
       console.log(res.data);
       setIsLoggedIn(true);
       setAuthUser(res.data);
-      navigate("/landing");
+      navigate("/home");
     } catch (error) {
       console.log("error", error);
       setDialogIsOpen(true);
