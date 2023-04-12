@@ -7,12 +7,13 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
+import { Logout } from "@mui/icons-material";
+import { useAuth } from "../context/AuthContext";
+import Stack from "@mui/material/Stack";
 
 const pages = ["login", "signup", "Home", "Blogs"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -20,7 +21,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const { isLoggedIn } = useAuth();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -123,15 +124,36 @@ function Navbar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                <Link style={{textDecoration: 'none', color: 'white'}} to={`${page}`}>{page}</Link>
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to={`${page}`}
+                >
+                  {page}
+                </Link>
               </Button>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            {isLoggedIn ? (
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Logout
+              </Button>
+            ) : (
+              <Stack direction="row" spacing={1}>
+                <Button variant="Contained">Login</Button>
+                <Button variant="outlined" style={{ color: "white" }}>
+                  Logout
+                </Button>
+              </Stack>
+              // <p>kaksdhbajsd</p>
+            )}
+            {/* <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Logout style={{ color: "white" }} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -155,7 +177,7 @@ function Navbar() {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
-            </Menu>
+            </Menu> */}
           </Box>
         </Toolbar>
       </Container>

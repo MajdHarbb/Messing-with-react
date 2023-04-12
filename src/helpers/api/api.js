@@ -1,4 +1,4 @@
-import { axiosClient } from "./ApiClient";
+import { axiosClient } from "../api/ApiClient";
 
 export const api = {
   hello: () => {

@@ -11,9 +11,10 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { api } from "../helpers/api";
+import { api } from "../helpers/api/api";
 import Alert from "../components/Alert";
-
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 const theme = createTheme();
 
 export default function Login() {
@@ -23,12 +24,19 @@ export default function Login() {
   const openDialog = () => setDialogIsOpen(true);
   const closeDialog = () => setDialogIsOpen(false);
   const [error, setError] = useState("Invalid Credentails");
+
+  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn, test, setTest } =
+    useAuth();
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(data);
     try {
       const res = await api.login(data);
       console.log(res.data);
+      setIsLoggedIn(true);
+      setAuthUser(res.data);
+      navigate("/landing");
     } catch (error) {
       console.log("error", error);
       setDialogIsOpen(true);
@@ -104,6 +112,11 @@ export default function Login() {
                 <Link to="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
+              </Grid>
+            </Grid>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <p>{isLoggedIn ? JSON.stringify(authUser.token) : "no user"}</p>
               </Grid>
             </Grid>
           </Box>
