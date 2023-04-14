@@ -25,8 +25,7 @@ export default function Login() {
   const closeDialog = () => setDialogIsOpen(false);
   const [error, setError] = useState("Invalid Credentails");
 
-  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn, test, setTest } =
-    useAuth();
+  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -112,11 +111,6 @@ export default function Login() {
                 <Link to="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
-              </Grid>
-            </Grid>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <p>{isLoggedIn ? JSON.stringify(authUser.token) : "no user"}</p>
               </Grid>
             </Grid>
           </Box>

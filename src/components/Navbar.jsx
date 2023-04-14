@@ -14,7 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Logout } from "@mui/icons-material";
 import { useAuth } from "../context/AuthContext";
 import Stack from "@mui/material/Stack";
-const pages = ["login", "signup", "Home", "Blogs"];
+const pages = ["Home", "Blogs"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar() {
