@@ -2,10 +2,10 @@ import React from "react";
 import { useAuth } from "../../context/AuthContext";
 
 function Landing() {
-  const { authUser, isLoggedIn } = useAuth();
+  const { user, isLoggedIn } = useAuth();
   return (
     <div>
-      <h1>Hello {authUser.user.name}</h1>
+      <h1>Hello {user.first_name + " " +user.last_name}</h1>
     </div>
   );
 }

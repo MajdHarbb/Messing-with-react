@@ -20,9 +20,7 @@ axiosClient.interceptors.request.use(
       // window.location.href = `http://127.0.0.1:8000/`;
     }
     if (res.status === 404) {
-      console.log(
-        "The requested resource does not exist or has been deleted"
-      );
+      console.log("The requested resource does not exist or has been deleted");
     }
     if (res.status === 401) {
       console.log("Please login to access this resource");

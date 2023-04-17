@@ -11,7 +11,6 @@ import Unauthorized from "./components/Unauthorized";
 
 function App() {
   return (
-    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -23,7 +22,6 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
-    </BrowserRouter>
   );
 }
 

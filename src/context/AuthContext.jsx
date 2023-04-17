@@ -6,34 +6,28 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 export function AuthProvider(props) {
-  const [authUser, setAuthUser] = useState(null);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // useEffect(() => {
-  //   const storedUser = localStorage.getItem("user");
-  //   const logged = localStorage.getItem("isLoggedIn");
-  //   if (storedUser) {
-  //     setAuthUser(JSON.parse(authUser));
-  //     setIsLoggedIn(logged);
-  //   }
-  // }, []);
 
-  // useEffect(() => {
-  //   if (authUser) {
-  //     localStorage.setItem("user", JSON.stringify(authUser));
-  //     localStorage.setItem("isLoggedIn", true);
-  //     console.log("if")
-
-  //   } else {
-  //     localStorage.removeItem("user");
-  //     localStorage.removeItem("isLoggedIn");
-  //     console.log("else")
-  //   }
-  // }, [authUser]);
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    const storedToken = localStorage.getItem("token");
+    if (storedUser) {
+      console.log("user: ", JSON.parse(storedUser));
+      console.log("token: ", storedToken);
+      setUser(JSON.parse(storedUser));
+      setToken(storedToken);
+      setIsLoggedIn(true);
+    }
+  }, []);
   const value = {
-    authUser,
-    setAuthUser,
+    user,
+    setUser,
     isLoggedIn,
     setIsLoggedIn,
+    token,
+    setToken
   };
 
   return (

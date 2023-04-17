@@ -25,16 +25,19 @@ export default function Login() {
   const closeDialog = () => setDialogIsOpen(false);
   const [error, setError] = useState("Invalid Credentails");
 
-  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
+  const { user, setUser, isLoggedIn, setIsLoggedIn, token, setToken } = useAuth();
   const navigate = useNavigate();
-  const handleSubmit = async (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
     console.log(data);
     try {
       const res = await api.login(data);
       console.log(res.data);
+      window.localStorage.setItem("user", JSON.stringify(res.data.user));
+      window.localStorage.setItem("token", JSON.stringify(res.data.authorization.token));
       setIsLoggedIn(true);
-      setAuthUser(res.data);
+      setUser(res.data.user);
+      setToken(res.data.authorization.token);
       navigate("/home");
     } catch (error) {
       console.log("error", error);
@@ -68,7 +71,7 @@ export default function Login() {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={handleLogin}
             noValidate
             sx={{ mt: 1 }}
           >
