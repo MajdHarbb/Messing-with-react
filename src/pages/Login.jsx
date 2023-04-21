@@ -27,12 +27,12 @@ export default function Login() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Alert
+        {/* <Alert
           open={state.alertDialog.isOpen}
           onClose={state.alertDialog.closeDialog}
           text={state.alertDialog.message}
           title={state.alertDialog.title}
-        />
+        /> */}
         <Box
           sx={{
             marginTop: 8,

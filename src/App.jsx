@@ -7,10 +7,20 @@ import Signup from "./pages/Signup";
 import NotFound from "./components/NotFound";
 import Landing from "./pages/Authenticated/Landing";
 import ProtectedRoutes from "./helpers/routing/ProtectedRoutes";
+import Alert from "./components/Alert";
+import { useAuth } from "./context/AuthContext";
 import Unauthorized from "./components/Unauthorized";
 
 function App() {
+  const { state } = useAuth();
   return (
+    <>
+      <Alert
+        open={state.alertDialog.isOpen}
+        onClose={state.alertDialog.closeDialog}
+        text={state.alertDialog.message}
+        title={state.alertDialog.title}
+      />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -22,6 +32,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
+    </>
   );
 }
 
