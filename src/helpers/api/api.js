@@ -1,6 +1,7 @@
 import { axiosClient } from "../api/ApiClient";
 
 export const api = {
+  
   hello: () => {
     alert("hi");
   },
@@ -10,4 +11,10 @@ export const api = {
   signup: (data) => {
     return axiosClient.post("/signup", data);
   },
+  logout: (data) => {
+    return axiosClient.post("/logout", data);
+  },
+  userTodos: (data) => {
+    return axiosClient.get("/todos-by-user");
+  }
 };

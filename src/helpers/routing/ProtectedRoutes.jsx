@@ -9,7 +9,7 @@ const useAuthHook = () => {
 //if user is authenticated allow outlet children, else nigavigate back to login page
 const ProtectedRoutes = () => {
   const isAuth = useAuthHook();
-  console.log("protected routes: ", isAuth)
+  // console.log("protected routes: ", isAuth)
   return isAuth ? (
     <React.Fragment>
       <Outlet />

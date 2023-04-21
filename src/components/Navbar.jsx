@@ -20,7 +20,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { isLoggedIn } = useAuth();
+  const { state , helpers } = useAuth();
   const navigate = useNavigate();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,6 +35,10 @@ function Navbar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    helpers.logout();
   };
 
   return (
@@ -135,11 +139,11 @@ function Navbar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {isLoggedIn ? (
+            {state.isLoggedIn ? (
               <Button
                 variant="outlined"
                 style={{ color: "white", borderColor: "white" }}
-                onClick={() => navigate("/")}
+                onClick={() => handleLogout()}
               >
                 Logout
               </Button>

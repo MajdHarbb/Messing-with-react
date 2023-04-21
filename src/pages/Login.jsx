@@ -11,38 +11,16 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { api } from "../helpers/api/api";
 import Alert from "../components/Alert";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 const theme = createTheme();
 
 export default function Login() {
   const [data, setData] = useState({ email: null, password: null });
-
-  const [dialogIsOpen, setDialogIsOpen] = React.useState(false);
-  const openDialog = () => setDialogIsOpen(true);
-  const closeDialog = () => setDialogIsOpen(false);
-  const [error, setError] = useState("Invalid Credentails");
-
-  const { user, setUser, isLoggedIn, setIsLoggedIn, token, setToken } = useAuth();
-  const navigate = useNavigate();
-  const handleLogin = async (event) => {
+  const { helpers, state } = useAuth();
+  const handleLogin = (event) => {
     event.preventDefault();
-    console.log(data);
-    try {
-      const res = await api.login(data);
-      console.log(res.data);
-      window.localStorage.setItem("user", JSON.stringify(res.data.user));
-      window.localStorage.setItem("token", JSON.stringify(res.data.authorization.token));
-      setIsLoggedIn(true);
-      setUser(res.data.user);
-      setToken(res.data.authorization.token);
-      navigate("/home");
-    } catch (error) {
-      console.log("error", error);
-      setDialogIsOpen(true);
-    }
+    helpers.login(data);
   };
 
   return (
@@ -50,10 +28,10 @@ export default function Login() {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Alert
-          open={dialogIsOpen}
-          onClose={closeDialog}
-          text={error}
-          title="Login Failed"
+          open={state.alertDialog.isOpen}
+          onClose={state.alertDialog.closeDialog}
+          text={state.alertDialog.message}
+          title={state.alertDialog.title}
         />
         <Box
           sx={{
