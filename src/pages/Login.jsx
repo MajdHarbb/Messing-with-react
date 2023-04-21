@@ -11,13 +11,12 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import Alert from "../components/Alert";
 import { useAuth } from "../context/AuthContext";
 const theme = createTheme();
 
 export default function Login() {
   const [data, setData] = useState({ email: null, password: null });
-  const { helpers, state } = useAuth();
+  const { helpers } = useAuth();
   const handleLogin = (event) => {
     event.preventDefault();
     helpers.login(data);
@@ -27,12 +26,6 @@ export default function Login() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        {/* <Alert
-          open={state.alertDialog.isOpen}
-          onClose={state.alertDialog.closeDialog}
-          text={state.alertDialog.message}
-          title={state.alertDialog.title}
-        /> */}
         <Box
           sx={{
             marginTop: 8,

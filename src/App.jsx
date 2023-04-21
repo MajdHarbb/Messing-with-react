@@ -15,6 +15,7 @@ function App() {
   const { state } = useAuth();
   return (
     <>
+    {/* global error/ message alert component */}
       <Alert
         open={state.alertDialog.isOpen}
         onClose={state.alertDialog.closeDialog}
